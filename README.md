@@ -8,20 +8,24 @@ Hinton GE, Nowlan SJ (1981) How Learning Can Guide Evolution. Complex Systems. 1
 
 To run, clone morphologica into this directory:
 
+```
 git clone https://github.com/ABRG-Models/morphologica.git
+```
 
 Then: 
 
-'''
+```
 mkdir build
 cd build
 cmake ..
 make
 cd ..
-'''
+```
 Then to run:
 
+```
 ./build/hinton config.json logs
+```
 
 (optionally append a seed for the random number generator)
 
