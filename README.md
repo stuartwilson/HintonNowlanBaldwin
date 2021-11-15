@@ -6,13 +6,15 @@ This code is based on the model described in the paper:
 
 Hinton GE, Nowlan SJ (1981) How Learning Can Guide Evolution. Complex Systems. 1(3):495–502.
 
-After cloning the repo, also clone morphologica into this directory:
+This code uses the json and h5 libraries via the morphologica library and you will need to install any dependencies for morphologica by following the instructions at https://github.com/ABRG-Models/morphologica.git.
+
+Once you've done that clone this repo, and in this directory also clone morphologica:
 
 ```
 git clone https://github.com/ABRG-Models/morphologica.git
 ```
 
-Then build the project: 
+Then you can build the project: 
 
 ```
 mkdir build
