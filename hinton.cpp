@@ -29,7 +29,8 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
                 f *= (rng->get()<0.5);
             }
             if (f==1){
-                return 1.0-(T*1.-t)/(T*1.);
+                //return 1.0-(T*1.-t)/(T*1.);
+                return (T*1.-t)/(T*1.);
             }
         }
         return f_min;
