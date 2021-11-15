@@ -1,6 +1,5 @@
 #include <morph/HdfData.h>
 #include <morph/Config.h>
-//#include <morph/Random.h>
 
 #include <iostream>
 #include <vector>
@@ -9,10 +8,7 @@
 #include <fstream>
 using namespace std;
 
-
-
 morph::RandUniform<double, std::mt19937>* rng;
-
 
 double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
 
@@ -64,12 +60,12 @@ int main (int argc, char **argv){
     { std::stringstream ss; ss << logpath << "/log.txt"; logfile.open(ss.str());}
     logfile<<"Hello."<<std::endl;
 
-    int G = conf.getInt("G", 1000);   // generations
-    int T = conf.getInt("T", 1000);   // nodes
-    int N = conf.getInt("N", 20);   // learning steps
-    int P = conf.getInt("popSize", 1000);
-    double initialQs = conf.getDouble("initialQs", 0.5);
-    double mutationRate = conf.getDouble("mutationRate", 0.0);
+    int G = conf.getInt("generations", 1000);   // generations
+    int P = conf.getInt("populationSize", 1000);
+    int T = conf.getInt("lifetimeLearningTrials", 1000);   // nodes
+    int N = conf.getInt("numAlleles", 20);   // learning steps
+    double initialQs = conf.getDouble("initialProportionLearnable", 0.5);
+    double mutationRate = conf.getDouble("genomeMutationRate", 0.0);
     double targetMutationRate = conf.getDouble("targetMutationRate", 0.0);
     int Nover2 = N/2;
 
@@ -170,23 +166,11 @@ int main (int argc, char **argv){
             }
         }
 
-/*
-        for(int p=0;p<P;p++){
-            for(int i=0;i<N;i++){
-                if(rng->get()<0.5){
-                    X[p][i] = Dad[p][i];
-                }
-            }
-        }
-*/
         if(mutationRate>0){
             for(int p=0;p<P;p++){
                 for(int i=0;i<N;i++){
                     if(rng->get()<mutationRate){
                         X[p][i] = floor(rng->get()*3);
-                        //if(X[p][i]<2){
-                        //    X[p][i] = 1- X[p][i];
-                        //}
                     }
                 }
             }

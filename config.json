@@ -1,9 +1,9 @@
 {
-	"popSize" : 1000,
-	"G" : 100,
-	"T" : 1000,
-	"N" : 20,
-	"initialQs" : 0.5,
-	"mutationRate" : 0.0,
-	"targetMutationRate" : 0.0
+	"generations" 			: 100,
+	"populationSize" 		: 1000,
+	"lifetimeLearningTrials"	: 1000,
+	"numAlleles" 			: 20,
+	"initialProportionLearnable" 	: 0.5,
+	"genomeMutationRate" 		: 0.0,
+	"targetMutationRate" 		: 0.0
 }
