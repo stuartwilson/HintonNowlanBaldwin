@@ -1,0 +1,9 @@
+{
+	"popSize" : 1000,
+	"G" : 1000,
+	"T" : 5000,
+	"N" : 20,
+	"initialQs" : 0.5,
+	"mutationRate" : 0.01,
+	"targetMutationRate" : 0.001
+}
