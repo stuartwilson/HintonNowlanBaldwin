@@ -1,7 +1,7 @@
 {
 	"generations" 			: 100,
 	"populationSize" 		: 1000,
-	"lifetimeLearningTrials"	: 1000,
+	"lifetimeLearningTrials" 	: 1000,
 	"numAlleles" 			: 20,
 	"initialProportionLearnable" 	: 0.5,
 	"genomeMutationRate" 		: 0.0,
