@@ -3,7 +3,7 @@
 	"populationSize" 		: 1000,
 	"lifetimeLearningTrials" 	: 1000,
 	"numAlleles" 			: 20,
-	"initialProportionLearnable" 	: 0.5,
-	"genomeMutationRate" 		: 0.0,
-	"targetMutationRate" 		: 0.0
+	"initialProportionLearnable" 	: 0.50,
+	"genomeMutationRate" 		: 0.00,
+	"targetMutationRate" 		: 0.00
 }
