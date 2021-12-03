@@ -1,5 +1,5 @@
 {
-	"generations" 			: 100,
+	"generations" 			: 500,
 	"populationSize" 		: 1000,
 	"lifetimeLearningTrials" 	: 1000,
 	"numAlleles" 			: 20,
