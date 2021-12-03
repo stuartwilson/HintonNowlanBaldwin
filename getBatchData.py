@@ -1,13 +1,12 @@
 import numpy as np
-import pylab as pl
 import h5py
 import sys
 import os
 
 cutoffIncrement = 10
-P0 = np.zeros([100,100])
-P1 = np.zeros([100,100])
-P2 = np.zeros([100,100])
+P0 = np.zeros([100,1000])
+P1 = np.zeros([100,1000])
+P2 = np.zeros([100,1000])
 
 a = os.listdir('logs')
 for i in a:
