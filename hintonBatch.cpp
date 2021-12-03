@@ -25,6 +25,16 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
         if(x[i]==2){ c++; }
     }
     if(c){
+
+        double P = 1.0-pow((1.0-pow(0.5,c)),T);
+
+        if(rng->get()<P){
+            return 1.0;
+        } else {
+            return f_min;
+        }
+
+        /*
         for(int t=0;t<T;t++){
             double f = 1.0;
             for(int i=0;i<c;i++){
@@ -34,7 +44,9 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
                 return 1.0; // 1.0-(T*1.-t)/(T*1.);
             }
         }
-        return f_min;
+        */
+        //return f_min;
+
     } else {
         return 1.0;
     }
