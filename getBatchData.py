@@ -16,16 +16,18 @@ for i in a:
     for j in b:
         simInd = int(j.split('m')[1]) # split at m in e.g., sim57
         fname = 'logs/'+i+'/'+j+'/out.h5'
+        try:
+            Fl = h5py.File(fname)
+            p0 = Fl['p0'][:]
+            p1 = Fl['p1'][:]
+            p2 = Fl['p2'][:]
 
-        Fl = h5py.File(fname)
-        p0 = Fl['p0'][:]
-        p1 = Fl['p1'][:]
-        p2 = Fl['p2'][:]
+            Fl.close()
 
-        Fl.close()
-
-        P0[cutoffInd,simInd] = p0[-1]
-        P1[cutoffInd,simInd] = p1[-1]
-        P2[cutoffInd,simInd] = p2[-1]
+            P0[cutoffInd,simInd] = p0[-1]
+            P1[cutoffInd,simInd] = p1[-1]
+            P2[cutoffInd,simInd] = p2[-1]
+        except:
+            continue
 
 np.savez('data.npz',P0=P0,P1=P1,P2=P2)
