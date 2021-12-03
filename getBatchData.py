@@ -12,9 +12,9 @@ a = os.listdir('logs')
 for i in a:
     b=os.listdir('logs/'+i)
     cutoff = int(i.split('ff')[1])      # split at ff in e.g., cutoff20
-    cutoffInd = int(cutoff/cutoffIncrement)-1        #
+    cutoffInd = int(cutoff/cutoffIncrement)        #
     for j in b:
-        simInd = int(j.split('m')[1])-1 # split at m in e.g., sim57
+        simInd = int(j.split('m')[1]) # split at m in e.g., sim57
         fname = 'logs/'+i+'/'+j+'/out.h5'
 
         Fl = h5py.File(fname)
