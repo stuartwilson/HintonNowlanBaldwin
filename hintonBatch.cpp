@@ -91,6 +91,9 @@ int main (int argc, char **argv){
 
     vector<int> target(N,1);
 
+    vector<int> fixationTime (1,-1);
+    bool Fixed = false;
+
 
     // setup initial population
     vector<vector<int> > X(P,vector<int>(N,0));
@@ -195,6 +198,25 @@ int main (int argc, char **argv){
             }
         }
 
+        if(!Fixed){
+            bool fixed = true;
+            vector<int> x = X[0];
+            for(int p=0;p<P;p++){
+                for(int i=0;i<N;i++){
+                    if(X[p][i]!=x[i]){
+                        fixed=false;
+                        break;
+                    }
+                }
+            }
+
+            if(fixed){
+                Fixed=true;
+                fixationTime[0] = g;
+                break;
+            }
+        }
+
         //std::cout<<"  "<<g<<"     \r"<<std::flush;
 
     }
@@ -215,6 +237,9 @@ int main (int argc, char **argv){
 
     path.str(""); path.clear(); path << "/pCorr";
     data.add_contained_vals (path.str().c_str(), pCorr);
+
+    path.str(""); path.clear(); path << "/fixTime";
+    data.add_contained_vals (path.str().c_str(), fixationTime);
 
     return 0;
 }
