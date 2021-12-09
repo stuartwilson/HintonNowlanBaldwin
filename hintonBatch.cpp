@@ -94,6 +94,8 @@ int main (int argc, char **argv){
     vector<int> fixationTime (1,-1);
     bool Fixed = false;
 
+    vector<int> fixationGenome (N,-1);
+
 
     // setup initial population
     vector<vector<int> > X(P,vector<int>(N,0));
@@ -213,6 +215,7 @@ int main (int argc, char **argv){
             if(fixed){
                 Fixed=true;
                 fixationTime[0] = g;
+                fixationGenome = X[0];
                 break;
             }
         }
@@ -240,6 +243,9 @@ int main (int argc, char **argv){
 
     path.str(""); path.clear(); path << "/fixTime";
     data.add_contained_vals (path.str().c_str(), fixationTime);
+
+    path.str(""); path.clear(); path << "/fixGenome";
+    data.add_contained_vals (path.str().c_str(), fixationGenome);
 
     return 0;
 }
