@@ -207,7 +207,7 @@ int main (int argc, char **argv){
                 for(int i=0;i<N;i++){
                     if(X[p][i]!=x[i]){
                         fixed=false;
-                        break;
+                        //break;
                     }
                 }
             }
