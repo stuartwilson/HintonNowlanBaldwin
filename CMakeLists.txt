@@ -96,6 +96,7 @@ add_executable(hintonBatchForced hintonBatchForced.cpp)
 target_compile_definitions(hinton PUBLIC FLT=float COMPILE_PLOTTING)
 target_compile_definitions(hintonBatch PUBLIC FLT=float COMPILE_PLOTTING)
 target_compile_definitions(hintonBatchForced PUBLIC FLT=float COMPILE_PLOTTING)
+target_compile_definitions(hintonBatchCritical PUBLIC FLT=float COMPILE_PLOTTING)
 
 
 # Morphologica code requires a number of libraries, collected into 'CORE' and 'GL'.
@@ -105,12 +106,14 @@ set(MORPH_LIBS_GL ${OpenCV_LIBS} OpenGL::GL Freetype::Freetype glfw)
 target_link_libraries(hinton ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
 target_link_libraries(hintonBatch ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
 target_link_libraries(hintonBatchForced ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
+target_link_libraries(hintonBatchCritical ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
 
 
 if(OpenMP_FOUND)
   target_link_libraries(hinton OpenMP::OpenMP_CXX)
   target_link_libraries(hintonBatch OpenMP::OpenMP_CXX)
   target_link_libraries(hintonBatchForced OpenMP::OpenMP_CXX)
+  target_link_libraries(hintonBatchCritical OpenMP::OpenMP_CXX)
 endif()
 
 # For debugging of variables:
