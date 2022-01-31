@@ -8,7 +8,7 @@ P0 = np.zeros([100,1000])
 P1 = np.zeros([100,1000])
 P2 = np.zeros([100,1000])
 
-dir='logsN14'
+dir='logs'
 a = os.listdir(dir)
 for i in a:
     b=os.listdir(dir+'/'+i)
@@ -36,4 +36,4 @@ print(P0)
 print(P1)
 print(P2)
 
-np.savez('dataN14.npz',P0=P0,P1=P1,P2=P2)
+np.savez('dataN20.npz',P0=P0,P1=P1,P2=P2)

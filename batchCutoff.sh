@@ -5,7 +5,7 @@ do
     for ((j=0;j<1000;j++));
     do
 	seed=$((i*1000+j))
-        ./build/hintonBatch config.json logs/cutoff$i/sim$j $i $seed &
+        ./build/hintonBatch configBatch.json logs/cutoff$i/sim$j $i $seed &
     done
 
 done

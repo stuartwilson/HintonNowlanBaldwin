@@ -25,7 +25,7 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
         if(x[i]==2){ c++; }
     }
     if(c){
-
+/*
         double P = 1.0-pow((1.0-pow(0.5,c)),T);
 
         if(rng->get()<P){
@@ -33,9 +33,14 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
         } else {
             return f_min;
         }
-
-        /*
+*/
+        double dT = 1./(double)T;
         for(int t=0;t<T;t++){
+
+	    if(rng->get()< pow(0.5,c)){
+                return f_min+1.0+(double)t*dT;
+            }
+	    /*
             double f = 1.0;
             for(int i=0;i<c;i++){
                 f *= (rng->get()<0.5);
@@ -43,9 +48,10 @@ double getFit(std::vector<int> x, int T, double f_min, vector<int> target){
             if (f==1){
                 return 1.0; // 1.0-(T*1.-t)/(T*1.);
             }
+	    */
         }
-        */
-        //return f_min;
+        
+        return f_min;
 
     } else {
         return 1.0;
@@ -214,9 +220,9 @@ int main (int argc, char **argv){
         X = Mum;
 
         for(int p=0;p<P;p++){
-            int crossover = rng->get()*N;
-            for(int i=crossover;i<N;i++){
-            //for(int i=Nover2;i<N;i++){
+            //int crossover = rng->get()*N;
+            //for(int i=crossover;i<N;i++){
+            for(int i=Nover2;i<N;i++){
                 X[p][i] = Dad[p][i];
             }
         }
