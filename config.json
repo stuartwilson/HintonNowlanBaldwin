@@ -1,8 +1,8 @@
 {
-	"generations" 			: 500,
+	"generations" 			: 1000,
 	"populationSize" 		: 1000,
 	"lifetimeLearningTrials" 	: 1000,
-	"numAlleles" 			: 20,
+	"numAlleles" 			: 15,
 	"initialProportionLearnable" 	: 0.50,
 	"genomeMutationRate" 		: 0.00,
 	"targetMutationRate" 		: 0.00

@@ -90,7 +90,9 @@ include_directories(BEFORE ${MORPH_INCLUDE_PATH})
 # Define which code makes up the recurrent net program
 add_executable(hinton hinton.cpp)
 add_executable(hintonBatch hintonBatch.cpp)
+add_executable(hintonBatchCritical hintonBatchCritical.cpp)
 add_executable(hintonBatchForced hintonBatchForced.cpp)
+
 
 # Define how model will be compiled
 target_compile_definitions(hinton PUBLIC FLT=float COMPILE_PLOTTING)
