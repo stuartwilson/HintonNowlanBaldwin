@@ -176,9 +176,9 @@ int main (int argc, char **argv){
     double norm = 1.0/((double)P*(double)N);
 
     vector<int> rp= randPermute(N);
-    vector<int> mutableID;
+    vector<int> mutableID(numMutable);
     for(int i=0;i<numMutable;i++){
-    mutableID.push_back(rp[i]);
+        mutableID[i]=rp[i];
     }
 
     double f_min = conf.getDouble("f_min", 1.0/(double)P);
@@ -194,7 +194,9 @@ int main (int argc, char **argv){
         }
     }
 
-    vector<double> p0, p1, p2;
+    vector<double> p0(G,0.0);
+    vector<double> p1(G,0.0);
+    vector<double> p2(G,0.0);
 
     // MAIN EVOLUTINOARY LOOP
 
@@ -217,9 +219,9 @@ int main (int argc, char **argv){
                 }
             }
         }
-        p0.push_back((double)c0*norm);
-        p1.push_back((double)c1*norm);
-        p2.push_back((double)c2*norm);
+        p0[g]=(double)c0*norm;
+        p1[g]=(double)c1*norm;
+        p2[g]=(double)c2*norm;
 
 
         // vary target
@@ -252,7 +254,7 @@ int main (int argc, char **argv){
                         }
                         f+= getFitB(x,t,f_min,T/chunks);
                     }
-                    F[p] = f/(float)chunks;
+                    F[p] = f/(double)chunks;
                 }
             } break;
         }
@@ -290,5 +292,6 @@ int main (int argc, char **argv){
 
     return 0;
 }
+
 
 
