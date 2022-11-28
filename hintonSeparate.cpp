@@ -25,21 +25,21 @@ vector<int> randPermute(int x){
 
 
 // ORIGINAL HINTON AND NOWLAN FITNESS FUNCTION
-double getFitA(std::vector<std::vector<int> > x, vector<int> target, double f_min, int T){
+double getFitA(std::vector<std::vector<bool> > x, vector<bool> target, double f_min, int T){
 
     int N = x.size();
     for(int i=0;i<N;i++){
-        if((x[i][0]!=target[i]) && (x[i][1]!=1)){
+        if((x[i][0]!=target[i]) && (!x[i][1])){
             return 1.0;
         }
     }
     int c = 0;
     for(int i=0;i<N;i++){
-        if(x[i][1]==1){ c++; }
+        if(x[i][1]){ c++; }
     }
     if(c){
         for(int t=0;t<T;t++){
-	        if (rng->get()<pow(2,-(double)c)){
+            if (rng->get()<pow(2,-(double)c)){
                 return 1.0+(double)(N-1)*(T*1.-t)/(T*1.);
             }
         }
@@ -50,17 +50,17 @@ double getFitA(std::vector<std::vector<int> > x, vector<int> target, double f_mi
 }
 
 // SIMPLIFIED 'BINARY FITNESS' FUNCTION
-double getFitB(std::vector<std::vector<int> > x, vector<int> target, double f_min, int T){
+double getFitB(std::vector<std::vector<bool> > x, vector<bool> target, double f_min, int T){
 
     int N = x.size();
     for(int i=0;i<N;i++){
-        if((x[i][0]!=target[i]) && (x[i][1]!=1)){
+        if((x[i][0]!=target[i]) && (!x[i][1])){
             return f_min;
         }
     }
     int c = 0;
     for(int i=0;i<N;i++){
-        if(x[i][1]==1){ c++; }
+        if(x[i][1]){ c++; }
     }
     double P = 1.0-pow((1.0-pow(0.5,(double)c)),(double)T);
     if(rng->get()<P){
@@ -72,7 +72,7 @@ double getFitB(std::vector<std::vector<int> > x, vector<int> target, double f_mi
 
 
 // HINTON AND NOWLAN SELECTION METHOD (SELECTION PROBABILITY BASED ON RELATIVE FITNESS)
-vector<vector<vector<int> > > selectionHN (vector<vector<vector<int> > > X, vector<double> F){
+vector<vector<vector<bool> > > selectionHN (vector<vector<vector<bool> > > X, vector<double> F){
 
     int P = X.size();
     int N = X[0].size();
@@ -87,7 +87,7 @@ vector<vector<vector<int> > > selectionHN (vector<vector<vector<int> > > X, vect
         upper[p] = cumSum;
     }
 
-    vector<vector<vector<int> > > Mum(P,vector<vector<int> > (N,vector<int>(2,0)));
+    vector<vector<vector<bool> > > Mum(P,vector<vector<bool> > (N,vector<bool>(2,false)));
     for(int p=0;p<P;p++){
         double r = rng->get()*cumSum;
         for(int q=0;q<P;q++){
@@ -98,7 +98,7 @@ vector<vector<vector<int> > > selectionHN (vector<vector<vector<int> > > X, vect
         }
     }
 
-    vector<vector<vector<int> > > Dad(P,vector<vector<int> > (N,vector<int>(2,0)));
+    vector<vector<vector<bool> > > Dad(P,vector<vector<bool> > (N,vector<bool>(2,false)));
     for(int p=0;p<P;p++){
         double r = rng->get()*cumSum;
         for(int q=0;q<P;q++){
@@ -152,7 +152,7 @@ int main (int argc, char **argv){
 
     int G = conf.getInt("generations", 1000);
     int P = conf.getInt("populationSize", 1000);
-    int T = conf.getInt("lifetimeLearningTrials", 1000); // NOTE SET T=-1 IN CONFIG TO USE PARAM LINE INPUT ARGV[4] TO SPECIFY IT INSTEAD    
+    int T = conf.getInt("lifetimeLearningTrials", 1000); // NOTE SET T=-1 IN CONFIG TO USE PARAM LINE INPUT ARGV[4] TO SPECIFY IT INSTEAD
     int N = conf.getInt("numAlleles", 20);
     double initialQs = conf.getDouble("initialProportionLearnable", 0.5);
 
@@ -162,15 +162,15 @@ int main (int argc, char **argv){
     int chunks = conf.getInt("chunks",1);
 
     double mutationRate = (double)std::stoi(argv[3])/(double)(mutationRateRes-1);
-    
-    double targetMutationRate; 
+
+    double targetMutationRate;
     if(T<0){
-    	T = stoi(argv[4]);
-    	targetMutationRate = 0.0;
+        T = stoi(argv[4]);
+        targetMutationRate = 0.0;
     } else {
-    	targetMutationRate = (double)std::stoi(argv[4])/(double)(targetMutationRateRes-1);
+        targetMutationRate = (double)std::stoi(argv[4])/(double)(targetMutationRateRes-1);
     }
-    
+
     int numMutable = std::stoi(argv[5]);
 
     double norm = 1.0/((double)P*(double)N);
@@ -178,15 +178,15 @@ int main (int argc, char **argv){
     vector<int> rp= randPermute(N);
     vector<int> mutableID;
     for(int i=0;i<numMutable;i++){
-	mutableID.push_back(rp[i]);
+    mutableID.push_back(rp[i]);
     }
 
     double f_min = conf.getDouble("f_min", 1.0/(double)P);
 
-    vector<int> target(N,1);
+    vector<bool> target(N,1);
 
     //
-    vector<vector<vector<int> > > X(P,vector<vector<int> > (N,vector<int>(2,0)));
+    vector<vector<vector<bool> > > X(P,vector<vector<bool> > (N,vector<bool>(2,false)));
     for(int p=0;p<P;p++){
         for(int i=0;i<N;i++){
             X[p][i][0]=rng->get()<0.5;          // genetic state
@@ -195,7 +195,7 @@ int main (int argc, char **argv){
     }
 
     vector<double> p0, p1, p2;
- 
+
     // MAIN EVOLUTINOARY LOOP
 
     for(int g=0;g<G;g++){
@@ -225,7 +225,7 @@ int main (int argc, char **argv){
         // vary target
          for(int i=0;i<numMutable;i++){
                 if(rng->get()<targetMutationRate){
-                    target[mutableID[i]] = 1-target[mutableID[i]];
+                    target[mutableID[i]] = !target[mutableID[i]];
             }
         }
 
@@ -239,8 +239,8 @@ int main (int argc, char **argv){
                     } break;
             case(1): {
 
-                vector<vector<int> > x(N/chunks,vector<int> (2,0));
-                vector<int> t(N/chunks,0);
+                vector<vector<bool> > x(N/chunks,vector<bool> (2,false));
+                vector<bool> t(N/chunks,false);
                 for(int p=0;p<P;p++){
                     double f=0.0;
                     int k=0;
@@ -265,7 +265,7 @@ int main (int argc, char **argv){
             for(int p=0;p<P;p++){
                 for(int i=0;i<N;i++){
                     if(rng->get()<mutationRate){
-                        X[p][i][0] = 1-X[p][i][0];
+                        X[p][i][0] = !X[p][i][0];
                     }
                 }
             }
