@@ -109,20 +109,20 @@ vector<vector<vector<bool> > > selectionHN (vector<vector<vector<bool> > > X, ve
         }
     }
 
-    X = Mum;
+    //X = Mum;
 
     for(int p=0;p<P;p++){
         int crossOverGenetic = rng->get()*(N-1)+1;
         for(int i=crossOverGenetic;i<N;i++){
-            X[p][i][0] = Dad[p][i][0];
+            Mum[p][i][0] = Dad[p][i][0];
         }
 
         int crossOverAdaptive = rng->get()*(N-1)+1;
         for(int i=crossOverAdaptive;i<N;i++){
-            X[p][i][1] = Dad[p][i][1];
+            Mum[p][i][1] = Dad[p][i][1];
         }
     }
-    return X;
+    return Mum;
 }
 
 
