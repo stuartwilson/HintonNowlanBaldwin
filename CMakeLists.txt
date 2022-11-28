@@ -110,7 +110,7 @@ set(MORPH_LIBS_CORE ${ARMADILLO_LIBRARY} ${ARMADILLO_LIBRARIES} ${HDF5_C_LIBRARI
 set(MORPH_LIBS_GL ${OpenCV_LIBS} OpenGL::GL Freetype::Freetype glfw)
 
 #foreach(MODEL hinton hintonBatch hintonBatchForced hintonBatchCritical hintonBatchVolatile hintonBatchOpposing hintonBatchVolatileConfigurable)
-foreach(MODEL hinton)
+foreach(MODEL hinton hintonSeparate)
 	set(MODELNAME ${MODEL})
 	add_executable(${MODELNAME} ${MODELNAME}.cpp)
 	target_compile_definitions(${MODELNAME} PUBLIC FLT=float COMPILE_PLOTTING)
