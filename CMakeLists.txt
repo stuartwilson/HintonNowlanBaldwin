@@ -88,35 +88,44 @@ include_directories(BEFORE ${MORPH_INCLUDE_PATH})
 
 
 # Define which code makes up the recurrent net program
-add_executable(hinton hinton.cpp)
-add_executable(hintonBatch hintonBatch.cpp)
-add_executable(hintonBatchCritical hintonBatchCritical.cpp)
-add_executable(hintonBatchForced hintonBatchForced.cpp)
+#add_executable(hinton hinton.cpp)
+#add_executable(hintonBatch hintonBatch.cpp)
+#add_executable(hintonBatchCritical hintonBatchCritical.cpp)
+#add_executable(hintonBatchForced hintonBatchForced.cpp)
+#add_executable(hintonBatchVolatile hintonBatchVolatile.cpp)
+#add_executable(hintonBatchOpposing hintonBatchOpposing.cpp)
 
 
 # Define how model will be compiled
-target_compile_definitions(hinton PUBLIC FLT=float COMPILE_PLOTTING)
-target_compile_definitions(hintonBatch PUBLIC FLT=float COMPILE_PLOTTING)
-target_compile_definitions(hintonBatchForced PUBLIC FLT=float COMPILE_PLOTTING)
-target_compile_definitions(hintonBatchCritical PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hinton PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hintonBatch PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hintonBatchForced PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hintonBatchCritical PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hintonBatchVolatile PUBLIC FLT=float COMPILE_PLOTTING)
+#target_compile_definitions(hintonBatchOpposing PUBLIC FLT=float COMPILE_PLOTTING)
 
 
 # Morphologica code requires a number of libraries, collected into 'CORE' and 'GL'.
 set(MORPH_LIBS_CORE ${ARMADILLO_LIBRARY} ${ARMADILLO_LIBRARIES} ${HDF5_C_LIBRARIES} ${LAPACK_LIBRARIES} jsoncpp_lib)
 set(MORPH_LIBS_GL ${OpenCV_LIBS} OpenGL::GL Freetype::Freetype glfw)
 
-target_link_libraries(hinton ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
-target_link_libraries(hintonBatch ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
-target_link_libraries(hintonBatchForced ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
-target_link_libraries(hintonBatchCritical ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
+#foreach(MODEL hinton hintonBatch hintonBatchForced hintonBatchCritical hintonBatchVolatile hintonBatchOpposing hintonBatchVolatileConfigurable)
+foreach(MODEL hinton)
+	set(MODELNAME ${MODEL})
+	add_executable(${MODELNAME} ${MODELNAME}.cpp)
+	target_compile_definitions(${MODELNAME} PUBLIC FLT=float COMPILE_PLOTTING)
+	target_link_libraries(${MODELNAME} ${MORPH_LIBS_CORE} ${MORPH_LIBS_GL})
+	#target_link_libraries(${MODELNAME} OpenMP::OpenMP_CXX)
+endforeach()
 
-
-if(OpenMP_FOUND)
-  target_link_libraries(hinton OpenMP::OpenMP_CXX)
-  target_link_libraries(hintonBatch OpenMP::OpenMP_CXX)
-  target_link_libraries(hintonBatchForced OpenMP::OpenMP_CXX)
-  target_link_libraries(hintonBatchCritical OpenMP::OpenMP_CXX)
-endif()
+#if(OpenMP_FOUND)
+#  target_link_libraries(hinton OpenMP::OpenMP_CXX)
+#  target_link_libraries(hintonBatch OpenMP::OpenMP_CXX)
+#  target_link_libraries(hintonBatchForced OpenMP::OpenMP_CXX)
+#  target_link_libraries(hintonBatchCritical OpenMP::OpenMP_CXX)
+  #target_link_libraries(hintonBatchVolatile OpenMP::OpenMP_CXX)
+#  target_link_libraries(hintonBatchOpposing OpenMP::OpenMP_CXX)
+#endif()
 
 # For debugging of variables:
 option(DEBUG_VARIABLES OFF)
