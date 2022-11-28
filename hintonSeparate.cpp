@@ -87,7 +87,24 @@ vector<vector<vector<bool> > > selectionHN (vector<vector<vector<bool> > > X, ve
         upper[p] = cumSum;
     }
 
-    vector<vector<vector<bool> > > Mum(P,vector<vector<bool> > (N,vector<bool>(2,false)));
+    //vector<vector<vector<bool> > > Mum(P,vector<vector<bool> > (N,vector<bool>(2,false)));
+    vector<vector<vector<bool> > > Mum(P);
+    for(int i=0;i<P;i++){
+        Mum[i].resize(N);
+        for(int j=0;j<N;j++){
+            Mum[i][j].resize(2,false);
+        }
+    }
+
+    vector<vector<vector<bool> > > Dad(P);
+    for(int i=0;i<P;i++){
+        Dad[i].resize(N);
+        for(int j=0;j<N;j++){
+            Dad[i][j].resize(2,false);
+        }
+    }
+
+
     for(int p=0;p<P;p++){
         double r = rng->get()*cumSum;
         for(int q=0;q<P;q++){
@@ -98,7 +115,7 @@ vector<vector<vector<bool> > > selectionHN (vector<vector<vector<bool> > > X, ve
         }
     }
 
-    vector<vector<vector<bool> > > Dad(P,vector<vector<bool> > (N,vector<bool>(2,false)));
+    //vector<vector<vector<bool> > > Dad(P,vector<vector<bool> > (N,vector<bool>(2,false)));
     for(int p=0;p<P;p++){
         double r = rng->get()*cumSum;
         for(int q=0;q<P;q++){
@@ -109,20 +126,20 @@ vector<vector<vector<bool> > > selectionHN (vector<vector<vector<bool> > > X, ve
         }
     }
 
-    //X = Mum;
+    X = Mum;
 
     for(int p=0;p<P;p++){
         int crossOverGenetic = rng->get()*(N-1)+1;
         for(int i=crossOverGenetic;i<N;i++){
-            Mum[p][i][0] = Dad[p][i][0];
+            X[p][i][0] = Dad[p][i][0];
         }
 
         int crossOverAdaptive = rng->get()*(N-1)+1;
         for(int i=crossOverAdaptive;i<N;i++){
-            Mum[p][i][1] = Dad[p][i][1];
+            X[p][i][1] = Dad[p][i][1];
         }
     }
-    return Mum;
+    return X;
 }
 
 
@@ -186,7 +203,17 @@ int main (int argc, char **argv){
     vector<bool> target(N,1);
 
     //
-    vector<vector<vector<bool> > > X(P,vector<vector<bool> > (N,vector<bool>(2,false)));
+    //vector<vector<vector<bool> > > X(P,vector<vector<bool> > (N,vector<bool>(2,false)));
+
+    vector<vector<vector<bool> > > X(P);
+    for(int i=0;i<P;i++){
+        X[i].resize(N);
+        for(int j=0;j<N;j++){
+            X[i][j].resize(2,false);
+        }
+    }
+
+
     for(int p=0;p<P;p++){
         for(int i=0;i<N;i++){
             X[p][i][0]=rng->get()<0.5;          // genetic state
